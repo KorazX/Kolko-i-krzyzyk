@@ -137,36 +137,35 @@ public class Okno {
             gr.drawLine(100*x+30, 100*y+30, 100*x+70, 100*y+70);
             gr.drawLine(100*x+70, 100*y+30, 100*x+30, 100*y+70);
             poleGry[x][y] = 1;
-            SprawdzCzyWygrana(1,x,y);
+            SprawdzCzyWygrana(x,y);
             czyjRuch = 2;
         } else {
             gr.drawOval(100*x+30, 100*y+30, 45, 45);
             poleGry[x][y] = 2;
-            SprawdzCzyWygrana(2, x, y);
+            SprawdzCzyWygrana( x, y);
             czyjRuch = 1;
         }
-
     }
-    public void SprawdzCzyWygrana(int gracz, int x, int y) {
+    public void SprawdzCzyWygrana( int x, int y) {
         int wygrana = 0; // 0 - brak wygranej, 1 - wygrana w kolumnie, 2 - wygrana w wierszu, 3 - wygrana na ukos, 4 - wygrana na ukos (przeciwnie)
 
-        if (poleGry[x][0] == gracz &&
-                poleGry[x][1] == gracz &&
-                poleGry[x][2] == gracz)
+        if (poleGry[x][0] == czyjRuch &&
+                poleGry[x][1] == czyjRuch &&
+                poleGry[x][2] == czyjRuch)
             wygrana = 1; // 3 w kolumnie
-        if (poleGry[0][y] == gracz &&
-                poleGry[1][y] == gracz &&
-                poleGry[2][y] == gracz)
+        if (poleGry[0][y] == czyjRuch &&
+                poleGry[1][y] == czyjRuch &&
+                poleGry[2][y] == czyjRuch)
             wygrana = 2; // 3 w wierszu
         if (x == y &&
-                poleGry[0][0] == gracz &&
-                poleGry[1][1] == gracz &&
-                poleGry[2][2] == gracz)
+                poleGry[0][0] == czyjRuch &&
+                poleGry[1][1] == czyjRuch &&
+                poleGry[2][2] == czyjRuch)
             wygrana = 3; // 3 na ukos
         if (x + y == 2 &&
-                poleGry[0][2] == gracz &&
-                poleGry[1][1] == gracz &&
-                poleGry[2][0] == gracz)
+                poleGry[0][2] == czyjRuch &&
+                poleGry[1][1] == czyjRuch &&
+                poleGry[2][0] == czyjRuch)
             wygrana = 4; // 3 na ukos przeciwnie
 
         if (wygrana != 0) {
@@ -186,17 +185,15 @@ public class Okno {
                     gr.drawLine(280, 20, 40, 260);
                     break;
             }
-            AktualizujLicznikWygranych(gracz);
+            AktualizujLicznikWygranych();
         }
     }
 
-    void AktualizujLicznikWygranych(int gracz) {
-        if (gracz == 1) liczbaWygranychX++;
+    void AktualizujLicznikWygranych() {
+        if (czyjRuch == 1) liczbaWygranychX++;
         else liczbaWygranychO++;
         wygrana.setText("Wygrane X:" + liczbaWygranychX + " O:" + liczbaWygranychO);
     }
-
-
 }
 
 class PanelRysunkowy extends JPanel {
